@@ -26,11 +26,13 @@
         "symfony/string": "5.1.*",
         "symfony/translation": "5.1.*",
         "symfony/twig-pack": "*",
+        "symfony/uid": "5.1.*",
         "symfony/validator": "5.1.*",
         "symfony/web-link": "5.1.*",
         "symfony/yaml": "5.1.*"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.3",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
         "symfony/profiler-pack": "*",
@@ -63,6 +65,13 @@
         "symfony/polyfill-php56": "*"
     },
     "scripts": {
+        "prepare": [
+            "php bin/console doctrine:database:drop --if-exists -f",
+            "php bin/console doctrine:database:create",
+            "php bin/console doctrine:schema:update -f",
+            "php bin/console doctrine:schema:valid",
+            "php bin/console doctrine:fixtures:load -n"
+        ],
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
